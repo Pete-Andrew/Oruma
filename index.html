@@ -1,0 +1,488 @@
+<!-- Splash page -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oruma</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="glow-border.css">
+    <script src="glow-border.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+
+    <style>
+        .word-slot {
+            display: inline-block;
+            position: relative;
+            vertical-align: bottom;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: visible;
+        }
+
+        .animated-word {
+            display: inline-block;
+            white-space: nowrap;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            opacity: 0;
+            transform: translateY(16px);
+            filter: blur(4px);
+            transition:
+                opacity 0.35s ease,
+                transform 0.35s ease,
+                filter 0.35s ease;
+            pointer-events: none;
+        }
+
+        .animated-word.active {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0px);
+            pointer-events: auto;
+            position: relative;
+        }
+
+        .animated-word.exit {
+            opacity: 0;
+            transform: translateY(-16px);
+            filter: blur(4px);
+            position: absolute;
+        }
+    </style>
+
+</head>
+
+<body class="bg-slate-900 text-white min-h-screen">
+
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-900/75 border-b border-slate-500/20">
+        <div class="max-w-[1120px] mx-auto px-5 py-3.5 w-full">
+
+            <!-- Mobile layout -->
+            <div class="flex md:hidden flex-col items-center justify-center gap-3 w-full text-center">
+                <img src="/img/d9a5b45cd_Logo_backgroundtransparent2.png" alt="Oruma Logo" class="object-contain"
+                    style="height: 75px; width: auto;">
+                <nav class="flex flex-wrap items-center justify-center gap-2">
+                    <a href="#waitlist"
+                        class="inline-flex items-center justify-center rounded-xl border text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-50 disabled:pointer-events-none px-3 py-1.5 border-slate-600/40 bg-slate-800/40 text-slate-100 hover:bg-slate-800/60 hover:border-slate-500/50">Join
+                        Waitlist</a>
+                    <a href="#demo"
+                        class="inline-flex items-center justify-center rounded-xl border text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-50 disabled:pointer-events-none px-3 py-1.5 border-transparent bg-transparent text-slate-200 hover:bg-slate-800/40">Request
+                        Demo</a>
+                    <a href="#updates"
+                        class="inline-flex items-center justify-center rounded-xl border text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-50 disabled:pointer-events-none px-3 py-1.5 border-transparent bg-transparent text-slate-200 hover:bg-slate-800/40">Updates</a>
+                    <button
+                        class="inline-flex items-center justify-center rounded-xl border text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-50 disabled:pointer-events-none px-3 py-1.5 border-blue-500 text-blue-400 hover:bg-blue-600 hover:text-white cursor-pointer">Sign
+                        in</button>
+                </nav>
+            </div>
+
+            <!-- Desktop layout -->
+            <div class="hidden md:flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <img src="/img/d9a5b45cd_Logo_backgroundtransparent2.png" alt="Oruma Logo" class="object-contain"
+                        style="height: 80px; width: auto;">
+                </div>
+                <nav class="flex items-center gap-2.5">
+                    <a href="#waitlist"
+                        class="inline-flex items-center justify-center rounded-xl border text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-50 disabled:pointer-events-none px-4 py-2 border-slate-600/40 bg-slate-800/40 text-slate-100 hover:bg-slate-800/60 hover:border-slate-500/50">Join
+                        Waitlist</a>
+                    <a href="#demo"
+                        class="inline-flex items-center justify-center rounded-xl border text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-50 disabled:pointer-events-none px-4 py-2 border-transparent bg-transparent text-slate-200 hover:bg-slate-800/40">
+                        Request Demo</a>
+                    <a href="#updates"
+                        class="inline-flex items-center justify-center rounded-xl border text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-50 disabled:pointer-events-none px-4 py-2 border-transparent bg-transparent text-slate-200 hover:bg-slate-800/40">Sign
+                        up for Updates</a>
+                    <button
+                        class="inline-flex items-center justify-center rounded-xl border text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-50 disabled:pointer-events-none px-4 py-2 border-blue-500 text-blue-400 hover:bg-blue-600 hover:text-white cursor-pointer">Sign
+                        in</button>
+                </nav>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Section 1 -->
+    <section id="top" class="py-12 md:py-18 border-b border-slate-500/20">
+        <div class="max-w-[1120px] mx-auto px-5 grid md:grid-cols-[1.2fr,1fr] gap-8 items-center">
+
+            <!-- Left: Text content -->
+            <div class="flex flex-col items-center text-center md:items-start md:text-left">
+                <span class="inline-block text-xs tracking-[0.12em] uppercase text-slate-400">
+                    Specification management made simple
+                </span>
+                <h1 id="heading" class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mt-2 mb-1"
+                    style="line-height: 1.3;">
+                    <!-- Hidden measurement div -->
+                    <div aria-hidden="true" id="measure-container" class="absolute opacity-0 pointer-events-none"
+                        style="visibility: hidden; white-space: nowrap;"></div>
+
+                    <!-- Animated word slot -->
+                    <span class="word-slot" id="word-slot">
+                        <span id="word-display"
+                            class="animated-word active font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-400">Centralise</span>
+                    </span>
+                    your specifications.
+                </h1>
+
+
+                <p class="text-slate-400 text-base md:text-lg mb-5 max-w-prose">
+                    Built for small and mid-sized providers who want clarity, consistency, and control — without
+                    enterprise cost or complexity.
+                </p>
+
+                <div class="flex flex-wrap justify-center md:justify-start gap-3">
+                    <a href="#waitlist"
+                        class="inline-flex items-center justify-center rounded-xl border text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-50 disabled:pointer-events-none px-4 py-2 border-transparent bg-gradient-to-tr from-blue-600 to-violet-500 text-white shadow-[0_8px_24px_rgba(59,130,246,.35)] hover:from-blue-500 hover:to-violet-400">Join
+                        the Waitlist</a>
+                    <a href="#demo"
+                        class="inline-flex items-center justify-center rounded-xl border text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-50 disabled:pointer-events-none px-4 py-2 border-slate-600/40 bg-slate-800/40 text-slate-100 hover:bg-slate-800/60 hover:border-slate-500/50">Request
+                        a Demo</a>
+                    <a href="#updates"
+                        class="inline-flex items-center justify-center rounded-xl border text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-50 disabled:pointer-events-none px-4 py-2 border-transparent bg-transparent text-slate-200 hover:bg-slate-800/40">Sign
+                        up for Updates →</a>
+                </div>
+
+                <p class="text-slate-400 text-xs md:text-sm mt-3">
+                    Be among the first to shape the future of specification management and access early-release
+                    features.
+                </p>
+            </div>
+
+            <!-- Right: Feature card -->
+            <div data-glow data-glow-speed="0.3"
+                class="relative rounded-2xl border border-slate-500/20 shadow-[0_10px_30px_rgba(0,0,0,.35)] p-4 md:p-5 w-full mx-auto md:mx-0 md:max-w-none max-w-sm">
+
+                <!-- Card content -->
+                <div
+                    class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full border border-slate-500/30 bg-white/5 text-sm mb-3">
+                    <span>🧩</span>
+                    <strong class="font-semibold">Structured • Traceable • Collaborative</strong>
+                </div>
+
+                <p class="text-slate-400 text-sm md:text-base">
+                    Replace scattered docs with a single source of truth. Oruma Spec brings templates, version control,
+                    approvals, and reuse into one organised space that scales from single projects to growing
+                    portfolios.
+                </p>
+
+                <ul class="list-disc pl-5 mt-3 text-slate-400 space-y-1 text-sm md:text-base">
+                    <li>Structured templates &amp; metadata</li>
+                    <li>Version control &amp; audit trails</li>
+                    <li>Collaboration with clients &amp; suppliers</li>
+                    <li>Smart search &amp; reuse</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Section 2 - Tired of chasing outdated Word files and fragmented spreadsheets? -->
+<section id="problem" class="py-12 md:py-16">
+    <div class="max-w-[1120px] mx-auto px-5">
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-2">Tired of chasing outdated Word files and
+            fragmented spreadsheets?</h2>
+        <p class="text-slate-400 max-w-[70ch] text-sm md:text-base">Legacy platforms are built for big organisations —
+            expensive, rigid, and hard to adopt. Smaller teams end up juggling documents across drives and inboxes,
+            creating risk, wasted time, and avoidable errors.</p>
+        <div class="grid md:grid-cols-3 gap-4 mt-6">
+
+            <!-- Document Sprawl -->
+            <div data-glow data-glow-speed="0.3" class="relative rounded-2xl border border-slate-500/20 bg-white/5 p-4 md:p-5 shadow">
+                <div class="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity opacity-100">
+                    <div
+                        class="glow rounded-[inherit] after:content-[&quot;&quot;] after:rounded-[inherit] after:absolute after:inset-[calc(-1*var(--glowingeffect-border-width))] after:[border:var(--glowingeffect-border-width)_solid_transparent] after:[background:var(--gradient)] after:[background-attachment:fixed] after:opacity-[var(--active)] after:transition-opacity after:duration-300 after:[mask-clip:padding-box,border-box] after:[mask-composite:intersect] after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]">
+                    </div>
+                </div>
+                
+                <h3 class="text-base font-semibold mb-1">📄 Document sprawl</h3>
+                <p class="text-slate-400 text-sm">Specs scattered across versions, folders, and emails — with no clear
+                    single source of truth.</p>
+            </div>
+
+            <!-- Slow Manual Worflows -->
+            <div data-glow data-glow-speed="0.3" class="relative rounded-2xl border border-slate-500/20 bg-white/5 p-4 md:p-5 shadow">
+
+                <div class="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity opacity-100"></div>
+                
+                <h3 class="text-base font-semibold mb-1">⏳ Slow, manual workflows</h3>
+                <p class="text-slate-400 text-sm">Approvals and changes tracked by hand, making audits and updates
+                    painful.</p>
+            </div>
+
+            <!-- Enterprise Bloat -->
+            <div data-glow data-glow-speed="0.3" class="relative rounded-2xl border border-slate-500/20 bg-white/5 p-4 md:p-5 shadow">
+                <div class="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity opacity-100">
+                    <div
+                        class="glow rounded-[inherit] after:content-[&quot;&quot;] after:rounded-[inherit] after:absolute after:inset-[calc(-1*var(--glowingeffect-border-width))] after:[border:var(--glowingeffect-border-width)_solid_transparent] after:[background:var(--gradient)] after:[background-attachment:fixed] after:opacity-[var(--active)] after:transition-opacity after:duration-300 after:[mask-clip:padding-box,border-box] after:[mask-composite:intersect] after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]">
+                    </div>
+                </div>
+
+                <h3 class="text-base font-semibold mb-1">💸 Enterprise bloat &amp; cost</h3>
+                <p class="text-slate-400 text-sm">Tools with opaque pricing and locked-down workflows that don't fit
+                    small providers.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Section 3 - Oruma Spec brings everything together — clearly, affordably, transparently.-->
+<section id="solution" class="py-12 md:py-16">
+    <div class="max-w-[1120px] mx-auto px-5">
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-2">Oruma Spec brings everything together —
+            clearly, affordably, transparently.</h2>
+        <p class="text-slate-400 max-w-[70ch] text-sm md:text-base">A cloud-based platform to create, review, and manage
+            specifications in one place. Start with a single project and scale up — without changing how you work.</p>
+        <div class="grid md:grid-cols-3 gap-4 mt-6">
+
+            <!-- Structured Templates -->
+            <div data-glow data-glow-speed="0.3" class="relative rounded-2xl border border-slate-500/20 bg-white/5 p-4 md:p-5 shadow">
+                <div
+                    class="pointer-events-none absolute -inset-px hidden rounded-[inherit] border transition-opacity opacity-100">
+                </div>
+                <div class="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity opacity-100">
+                    <div
+                        class="glow rounded-[inherit] after:content-[&quot;&quot;] after:rounded-[inherit] after:absolute after:inset-[calc(-1*var(--glowingeffect-border-width))] after:[border:var(--glowingeffect-border-width)_solid_transparent] after:[background:var(--gradient)] after:[background-attachment:fixed] after:opacity-[var(--active)] after:transition-opacity after:duration-300 after:[mask-clip:padding-box,border-box] after:[mask-composite:intersect] after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]">
+                    </div>
+                </div>
+                <h3 class="text-base font-semibold mb-1">🧩 Structured templates</h3>
+                <p class="text-slate-400 text-sm">Create consistent, standardised specs with the right fields and
+                    metadata every time.</p>
+            </div>
+
+            <!-- Version Control -->
+            <div data-glow data-glow-speed="0.3" class="relative rounded-2xl border border-slate-500/20 bg-white/5 p-4 md:p-5 shadow">
+                <div
+                    class="pointer-events-none absolute -inset-px hidden rounded-[inherit] border transition-opacity opacity-100">
+                </div>
+                <div class="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity opacity-100">
+                    <div
+                        class="glow rounded-[inherit] after:content-[&quot;&quot;] after:rounded-[inherit] after:absolute after:inset-[calc(-1*var(--glowingeffect-border-width))] after:[border:var(--glowingeffect-border-width)_solid_transparent] after:[background:var(--gradient)] after:[background-attachment:fixed] after:opacity-[var(--active)] after:transition-opacity after:duration-300 after:[mask-clip:padding-box,border-box] after:[mask-composite:intersect] after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]">
+                    </div>
+                </div>
+                <h3 class="text-base font-semibold mb-1">🔄 Version control</h3>
+                <p class="text-slate-400 text-sm">See who changed what, when, and why — with clean audit trails and
+                    rollbacks.</p>
+            </div>
+
+            <!-- Collaboration -->
+            <div data-glow data-glow-speed="0.3" class="relative rounded-2xl border border-slate-500/20 bg-white/5 p-4 md:p-5 shadow">
+                <div
+                    class="pointer-events-none absolute -inset-px hidden rounded-[inherit] border transition-opacity opacity-100">
+                </div>
+                <div class="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity opacity-100">
+                    <div
+                        class="glow rounded-[inherit] after:content-[&quot;&quot;] after:rounded-[inherit] after:absolute after:inset-[calc(-1*var(--glowingeffect-border-width))] after:[border:var(--glowingeffect-border-width)_solid_transparent] after:[background:var(--gradient)] after:[background-attachment:fixed] after:opacity-[var(--active)] after:transition-opacity after:duration-300 after:[mask-clip:padding-box,border-box] after:[mask-composite:intersect] after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]">
+                    </div>
+                </div>
+                <h3 class="text-base font-semibold mb-1">🤝 Collaboration</h3>
+                <p class="text-slate-400 text-sm">Invite teammates, clients, and suppliers into reviews and approvals
+                    with clear roles.</p>
+            </div>
+
+            <!-- Smart search & Reuse -->
+            <div data-glow data-glow-speed="0.3" class="relative rounded-2xl border border-slate-500/20 bg-white/5 p-4 md:p-5 shadow">
+                <div
+                    class="pointer-events-none absolute -inset-px hidden rounded-[inherit] border transition-opacity opacity-100">
+                </div>
+                <div class="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity opacity-100">
+                    <div
+                        class="glow rounded-[inherit] after:content-[&quot;&quot;] after:rounded-[inherit] after:absolute after:inset-[calc(-1*var(--glowingeffect-border-width))] after:[border:var(--glowingeffect-border-width)_solid_transparent] after:[background:var(--gradient)] after:[background-attachment:fixed] after:opacity-[var(--active)] after:transition-opacity after:duration-300 after:[mask-clip:padding-box,border-box] after:[mask-composite:intersect] after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]">
+                    </div>
+                </div>
+                <h3 class="text-base font-semibold mb-1">🔍 Smart search &amp; reuse</h3>
+                <p class="text-slate-400 text-sm">Find existing specs by attributes and reuse them across projects to
+                    save time.</p>
+            </div>
+
+            <!-- Transparency & Simplicity -->
+            <div data-glow data-glow-speed="0.3" class="relative rounded-2xl border border-slate-500/20 bg-white/5 p-4 md:p-5 shadow">
+                <div
+                    class="pointer-events-none absolute -inset-px hidden rounded-[inherit] border transition-opacity opacity-100">
+                </div>
+                <div class="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity opacity-100">
+                    <div
+                        class="glow rounded-[inherit] after:content-[&quot;&quot;] after:rounded-[inherit] after:absolute after:inset-[calc(-1*var(--glowingeffect-border-width))] after:[border:var(--glowingeffect-border-width)_solid_transparent] after:[background:var(--gradient)] after:[background-attachment:fixed] after:opacity-[var(--active)] after:transition-opacity after:duration-300 after:[mask-clip:padding-box,border-box] after:[mask-composite:intersect] after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]">
+                    </div>
+                </div>
+                <h3 class="text-base font-semibold mb-1">📊 Transparency &amp; simplicity</h3>
+                <p class="text-slate-400 text-sm">No hidden costs or lock-in — pricing and controls that grow with your
+                    practice.</p>
+            </div>
+
+            <!-- scales with you -->
+            <div data-glow data-glow-speed="0.3" class="relative rounded-2xl border border-slate-500/20 bg-white/5 p-4 md:p-5 shadow">
+                <div
+                    class="pointer-events-none absolute -inset-px hidden rounded-[inherit] border transition-opacity opacity-100">
+                </div>
+                <div class="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity opacity-100">
+                    <div
+                        class="glow rounded-[inherit] after:content-[&quot;&quot;] after:rounded-[inherit] after:absolute after:inset-[calc(-1*var(--glowingeffect-border-width))] after:[border:var(--glowingeffect-border-width)_solid_transparent] after:[background:var(--gradient)] after:[background-attachment:fixed] after:opacity-[var(--active)] after:transition-opacity after:duration-300 after:[mask-clip:padding-box,border-box] after:[mask-composite:intersect] after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]">
+                    </div>
+                </div>
+                <h3 class="text-base font-semibold mb-1">🛠️ Scales with you</h3>
+                <p class="text-slate-400 text-sm">From single-person studios to multi-discipline teams — add projects
+                    and users as you grow.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section 4 - Big-system capability. Small-practice flexibility.-->
+
+<section id="for-small" class="py-12 md:py-16">
+    <div class="max-w-[1120px] mx-auto px-5">
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-2">Big-system capability. Small-practice
+            flexibility.</h2>
+        <p class="text-slate-400 max-w-[70ch] text-sm md:text-base">We built Oruma Spec for small and mid-sized
+            providers who need professional tools without enterprise bloat. Start small, adapt templates to your
+            workflow, and scale seamlessly.</p>
+        <div class="grid md:grid-cols-3 gap-4 mt-6">
+            
+            <!-- Transparent Pricing -->
+            <div data-glow data-glow-speed="0.3" class="relative rounded-2xl border border-slate-500/20 bg-white/5 p-4 md:p-5 shadow">
+                <div
+                    class="pointer-events-none absolute -inset-px hidden rounded-[inherit] border transition-opacity opacity-100">
+                </div>
+                <div class="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity opacity-100">
+                    <div
+                        class="glow rounded-[inherit] after:content-[&quot;&quot;] after:rounded-[inherit] after:absolute after:inset-[calc(-1*var(--glowingeffect-border-width))] after:[border:var(--glowingeffect-border-width)_solid_transparent] after:[background:var(--gradient)] after:[background-attachment:fixed] after:opacity-[var(--active)] after:transition-opacity after:duration-300 after:[mask-clip:padding-box,border-box] after:[mask-composite:intersect] after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]">
+                    </div>
+                </div>
+                <h3 class="text-base font-semibold mb-1">✅ Transparent pricing</h3>
+                <p class="text-slate-400 text-sm">Predictable, honest plans with no surprises.</p>
+            </div>
+            
+            <!-- Zero IT burden -->
+            <div data-glow data-glow-speed="0.3" class="relative rounded-2xl border border-slate-500/20 bg-white/5 p-4 md:p-5 shadow">
+                <div
+                    class="pointer-events-none absolute -inset-px hidden rounded-[inherit] border transition-opacity opacity-100">
+                </div>
+                <div class="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity opacity-100">
+                    <div
+                        class="glow rounded-[inherit] after:content-[&quot;&quot;] after:rounded-[inherit] after:absolute after:inset-[calc(-1*var(--glowingeffect-border-width))] after:[border:var(--glowingeffect-border-width)_solid_transparent] after:[background:var(--gradient)] after:[background-attachment:fixed] after:opacity-[var(--active)] after:transition-opacity after:duration-300 after:[mask-clip:padding-box,border-box] after:[mask-composite:intersect] after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]">
+                    </div>
+                </div>
+                <h3 class="text-base font-semibold mb-1">🌐 Zero IT burden</h3>
+                <p class="text-slate-400 text-sm">Browser-based and secure — no complex setup or hardware.</p>
+            </div>
+            
+            <!-- Adaptable templates -->
+            <div data-glow data-glow-speed="0.3" class="relative rounded-2xl border border-slate-500/20 bg-white/5 p-4 md:p-5 shadow">
+                <div
+                    class="pointer-events-none absolute -inset-px hidden rounded-[inherit] border transition-opacity opacity-100">
+                </div>
+                <div class="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity opacity-100">
+                    <div
+                        class="glow rounded-[inherit] after:content-[&quot;&quot;] after:rounded-[inherit] after:absolute after:inset-[calc(-1*var(--glowingeffect-border-width))] after:[border:var(--glowingeffect-border-width)_solid_transparent] after:[background:var(--gradient)] after:[background-attachment:fixed] after:opacity-[var(--active)] after:transition-opacity after:duration-300 after:[mask-clip:padding-box,border-box] after:[mask-composite:intersect] after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]">
+                    </div>
+                </div>
+                <h3 class="text-base font-semibold mb-1">🧱 Adaptable templates</h3>
+                <p class="text-slate-400 text-sm">Tailor structures and fields to your project types.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Section 5 - Ready to simplify your specifications? -->
+
+<section id="cta" class="py-12 md:py-16">
+    <div class="max-w-[1120px] mx-auto px-5">
+        <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-2">Ready to simplify your specifications?</h2>
+        <p class="text-slate-400 max-w-[70ch] text-sm md:text-base">Join the Oruma Spec community and be first to
+            experience a smarter, more collaborative way to manage project data.</p>
+        <div class="grid md:grid-cols-3 gap-4 mt-6">
+
+            <!-- Join the waitinglist -->
+            <div data-glow data-glow-speed="0.3" id="waitlist" class="relative rounded-2xl border border-slate-500/20 bg-white/5 p-4 md:p-5 shadow">
+                <div
+                    class="pointer-events-none absolute -inset-px hidden rounded-[inherit] border transition-opacity opacity-100">
+                </div>
+                <div class="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity opacity-100">
+                    <div
+                        class="glow rounded-[inherit] after:content-[&quot;&quot;] after:rounded-[inherit] after:absolute after:inset-[calc(-1*var(--glowingeffect-border-width))] after:[border:var(--glowingeffect-border-width)_solid_transparent] after:[background:var(--gradient)] after:[background-attachment:fixed] after:opacity-[var(--active)] after:transition-opacity after:duration-300 after:[mask-clip:padding-box,border-box] after:[mask-composite:intersect] after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]">
+                    </div>
+                </div>
+                <h3 class="text-base font-semibold mb-2">Join the Waitlist</h3>
+                <form><label for="wl-email" class="text-slate-400 text-sm">Email</label><input id="wl-email"
+                        name="email" type="email" placeholder="you@company.com" required=""
+                        class="w-full mt-1 rounded-xl border border-slate-600/40 bg-slate-900/50 px-3 py-2 text-sm outline-none focus:ring-4 focus:ring-blue-500/40"><label
+                        for="wl-role" class="text-slate-400 text-sm mt-3 block">Your role (optional)</label><input
+                        id="wl-role" name="role" type="text" placeholder="Architect, Contractor, Manufacturer…"
+                        class="w-full mt-1 rounded-xl border border-slate-600/40 bg-slate-900/50 px-3 py-2 text-sm outline-none focus:ring-4 focus:ring-blue-500/40">
+                    <div class="mt-3"><button
+                            class="inline-flex items-center justify-center rounded-xl border text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-50 disabled:pointer-events-none px-4 py-2 border-transparent bg-gradient-to-tr from-blue-600 to-violet-500 text-white shadow-[0_8px_24px_rgba(59,130,246,.35)] hover:from-blue-500 hover:to-violet-400 w-full"
+                            type="submit">Join the Waitlist</button></div>
+                    <p class="text-slate-400 text-xs md:text-sm mt-2">We'll confirm your place and keep you posted on
+                        early access. No spam.</p>
+                    <p id="wl-message" class="mt-1 text-sm"></p>
+                </form>
+            </div>
+
+            <!-- Request a demo -->
+            <div data-glow data-glow-speed="0.3" id="demo" class="relative rounded-2xl border border-slate-500/20 bg-white/5 p-4 md:p-5 shadow">
+                <div
+                    class="pointer-events-none absolute -inset-px hidden rounded-[inherit] border transition-opacity opacity-100">
+                </div>
+                <div class="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity opacity-100">
+                    <div
+                        class="glow rounded-[inherit] after:content-[&quot;&quot;] after:rounded-[inherit] after:absolute after:inset-[calc(-1*var(--glowingeffect-border-width))] after:[border:var(--glowingeffect-border-width)_solid_transparent] after:[background:var(--gradient)] after:[background-attachment:fixed] after:opacity-[var(--active)] after:transition-opacity after:duration-300 after:[mask-clip:padding-box,border-box] after:[mask-composite:intersect] after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]">
+                    </div>
+                </div>
+                <h3 class="text-base font-semibold mb-2">Request a Demo</h3>
+                <form><label for="dm-name" class="text-slate-400 text-sm">Full name</label><input id="dm-name"
+                        name="name" type="text" placeholder="Norman Foster" required=""
+                        class="w-full mt-1 rounded-xl border border-slate-600/40 bg-slate-900/50 px-3 py-2 text-sm outline-none focus:ring-4 focus:ring-blue-500/40"><label
+                        for="dm-email" class="text-slate-400 text-sm mt-3 block">Work email</label><input id="dm-email"
+                        name="email" type="email" placeholder="you@company.com" required=""
+                        class="w-full mt-1 rounded-xl border border-slate-600/40 bg-slate-900/50 px-3 py-2 text-sm outline-none focus:ring-4 focus:ring-blue-500/40"><label
+                        for="dm-company" class="text-slate-400 text-sm mt-3 block">Organisation</label><input
+                        id="dm-company" name="company" type="text" placeholder="Company / Studio / Practice"
+                        class="w-full mt-1 rounded-xl border border-slate-600/40 bg-slate-900/50 px-3 py-2 text-sm outline-none focus:ring-4 focus:ring-blue-500/40"><label
+                        for="dm-notes" class="text-slate-400 text-sm mt-3 block">What would you like to
+                        see?</label><textarea id="dm-notes" name="notes"
+                        placeholder="e.g. Templates, approvals, reuse across projects…"
+                        class="w-full mt-1 min-h-[90px] md:min-h-[110px] rounded-xl border border-slate-600/40 bg-slate-900/50 px-3 py-2 text-sm outline-none focus:ring-4 focus:ring-blue-500/40"></textarea>
+                    <div class="mt-3"><button
+                            class="inline-flex items-center justify-center rounded-xl border text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-50 disabled:pointer-events-none px-4 py-2 border-slate-600/40 bg-slate-800/40 text-slate-100 hover:bg-slate-800/60 hover:border-slate-500/50 w-full"
+                            type="submit">Request a Demo</button></div>
+                    <p class="text-slate-400 text-xs md:text-sm mt-2">We'll follow up to schedule a short walkthrough.
+                        No pressure.</p>
+                    <p id="dm-message" class="mt-1 text-sm"></p>
+                </form>
+            </div>
+
+            <!-- Sign in for updates -->
+            <div data-glow data-glow-speed="0.3" id="updates" class="relative rounded-2xl border border-slate-500/20 bg-white/5 p-4 md:p-5 shadow">
+                <div
+                    class="pointer-events-none absolute -inset-px hidden rounded-[inherit] border transition-opacity opacity-100">
+                </div>
+                <div class="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity opacity-100">
+                    <div
+                        class="glow rounded-[inherit] after:content-[&quot;&quot;] after:rounded-[inherit] after:absolute after:inset-[calc(-1*var(--glowingeffect-border-width))] after:[border:var(--glowingeffect-border-width)_solid_transparent] after:[background:var(--gradient)] after:[background-attachment:fixed] after:opacity-[var(--active)] after:transition-opacity after:duration-300 after:[mask-clip:padding-box,border-box] after:[mask-composite:intersect] after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]">
+                    </div>
+                </div>
+                <h3 class="text-base font-semibold mb-2">Sign up for Updates</h3>
+                <form><label for="up-email" class="text-slate-400 text-sm">Email</label><input id="up-email"
+                        name="email" type="email" placeholder="you@company.com" required=""
+                        class="w-full mt-1 rounded-xl border border-slate-600/40 bg-slate-900/50 px-3 py-2 text-sm outline-none focus:ring-4 focus:ring-blue-500/40">
+                    <div class="mt-3"><button
+                            class="inline-flex items-center justify-center rounded-xl border text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:opacity-50 disabled:pointer-events-none px-4 py-2 border-transparent bg-transparent text-slate-200 hover:bg-slate-800/40 w-full"
+                            type="submit">Sign me up</button></div>
+                    <p id="up-message" class="mt-1 text-sm"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+
+<footer class="border-t border-slate-500/20 py-6 md:py-9 text-slate-400"><div class="max-w-[1120px] mx-auto px-5 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left"><div class="text-sm">© 2026 Oruma Spec. All rights reserved.</div><div class="opacity-80 text-sm">Enterprise-grade specification control — built for small providers.</div></div></footer>
+
+</body>
+
+</html>
